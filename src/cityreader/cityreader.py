@@ -30,11 +30,11 @@ class City():
         self.name = name
         self.lat = lat
         self.lon = lon
-    # # Just to be thorough:
-    # # this allows for clean printing of objects for inspection
-    # def __str__(self):
-    #     # using fstring to manage the format of priting
-    #     return f"City Name:{self.name}, Latitude:{self.lat}, Longitude:{self.lon}"
+    # Just to be thorough:
+    # this allows for clean printing of objects for inspection
+    def __str__(self):
+        # using fstring to manage the format of priting
+        return f"City Name:{self.name}, Latitude:{self.lat}, Longitude:{self.lon}"
 
 
 
@@ -63,7 +63,7 @@ def cityreader(cities=[]):
         # reading the csv file using the imported library
         readCSV = csv.reader(csvfile, delimiter=',')
 
-        # skip header (new method)
+        # skip header
         next(readCSV) 
 
         # this loop iterates through the csv 
@@ -76,7 +76,6 @@ def cityreader(cities=[]):
             # city longitudes
             lons.append(row[4])
 
-        # original method to drop header
         # # remove header (the top row)
         # names.pop(0)
         # lats.pop(0)
@@ -99,8 +98,8 @@ cities = cityreader(cities)
 
 # print a list of just names
 # for all the listed cites
-#print([i.name for i in cities])
+# print([i.name for i in cities])
+# print(cities)
 
-# Print city information:
 for c in cities:
     print(c)
