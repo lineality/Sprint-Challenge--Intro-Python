@@ -17,7 +17,7 @@
 
 #GGA work
 
-class city():
+class City():
     # give it an additional name attribute
     def __init__(self, name, lat, lon):
         # new attribute
@@ -51,10 +51,10 @@ def cityreader(cities=[]):
         for row in readCSV:
             cities.append(row[0])
 
-        # adding city lat lon to class instances
-        for row in readCSV:
-            # iterate?
-            city = City(row[0], row[3], row[4])
+        # # adding city lat lon to class instances
+        # for row in readCSV:
+        #     # iterate?
+        #     city = City(row[0], row[3], row[4])
 
     # # drop header
     cities.pop(0)
