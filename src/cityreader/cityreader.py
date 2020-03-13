@@ -99,4 +99,8 @@ cities = cityreader(cities)
 
 # print a list of just names
 # for all the listed cites
-print([i.name for i in cities])
+#print([i.name for i in cities])
+
+# Print city information:
+for c in cities:
+    print(c)
