@@ -34,7 +34,7 @@ class City():
     # this allows for clean printing of objects for inspection
     def __str__(self):
         # using fstring to manage the format of priting
-        return f"City Name:{self.name}, Latitude:{self.lat}, Longitude:{self.lon}"
+        return f'City("{self.name}", {self.lat}, {self.lon}),'
 
 
 
@@ -42,10 +42,6 @@ class City():
 #
 # cities-list will contain the target results
 cities = []
-# these 3 are used to process the data
-names = []
-lats = []
-lons = []
 
 # instructions:
 # Implement the functionality to read from the 'cities.csv' file
@@ -69,26 +65,7 @@ def cityreader(cities=[]):
         # this loop iterates through the csv 
         # and pulls out the 3 required columns
         for row in readCSV:
-            # city names
-            names.append(row[0])
-            # city latitudes
-            lats.append(row[3])
-            # city longitudes
-            lons.append(row[4])
-
-        # # remove header (the top row)
-        # names.pop(0)
-        # lats.pop(0)
-        # lons.pop(0)
-
-    # this iterates through the values, 
-    # putting them into class Objects
-    # adding city lat lon to class instances
-    # the length is set to be the same as
-    # the number of city names in the CSV
-    for i in range(0,len(names)):
-        # iterate
-        cities.append(City(names[i], lats[i], lons[i]))
+            cities.append(City(str(row[0]), float(row[3]), float(row[4])))
 
     # finally this returns the completed list of city-objects
     return cities
