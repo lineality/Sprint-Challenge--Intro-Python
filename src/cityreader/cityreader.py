@@ -1,7 +1,6 @@
 # Create a class to hold a city location. Call the class "City". It should have
 # fields for name, lat and lon (representing latitude and longitude).
 
-
 # We have a collection of US cities with population over 750,000 stored in the
 # file "cities.csv". (CSV stands for "comma-separated values".)
 #
@@ -17,6 +16,12 @@
 
 # # #GGA work
 
+# skip header
+#https://www.alexkras.com/how-to-read-csv-file-in-python/
+
+# import library
+import csv # for opening csv files
+
 # creating an OOP Class
 class City():
     # constructor method (function)
@@ -25,36 +30,44 @@ class City():
         self.name = name
         self.lat = lat
         self.lon = lon
-    # Just to be thorough:
-    # this allows for clean printing of objects for inspection
-    def __str__(self):
-        # using fstring to manage the format of priting
-        return f"City Name:{self.name}, Latitude:{self.lat}, Longitude:{self.lon}"
+    # # Just to be thorough:
+    # # this allows for clean printing of objects for inspection
+    # def __str__(self):
+    #     # using fstring to manage the format of priting
+    #     return f"City Name:{self.name}, Latitude:{self.lat}, Longitude:{self.lon}"
 
-# import library
-import csv
+
 
 # create variables
-# cities contains the target results
+#
+# cities-list will contain the target results
 cities = []
-# these are used to process the data
+# these 3 are used to process the data
 names = []
 lats = []
 lons = []
 
+# instructions:
+# Implement the functionality to read from the 'cities.csv' file
+# For each city record, create a new City instance and add it to the 
+# `cities` list
+
 # function to read and process a CSV file
-def cityreader(cities):
-    # Implement the functionality to read from the 'cities.csv' file
-    # For each city record, create a new City instance and add it to the 
-    # `cities` list
+def cityreader(cities=[]):
+## this is the full list of options for column-features
+## city,state_name,county_name,lat,lng,population,density,timezone,zips
+
+    # opens csv file
     with open('cities.csv') as csvfile:
-        # reading the csv file
+
+        # reading the csv file using the imported library
         readCSV = csv.reader(csvfile, delimiter=',')
 
-        ## this is the full list of options for column-features
-        ## city,state_name,county_name,lat,lng,population,density,timezone,zips
+        # skip header (new method)
+        next(readCSV) 
 
-        # adding just the city column to the list of cities
+        # this loop iterates through the csv 
+        # and pulls out the 3 required columns
         for row in readCSV:
             # city names
             names.append(row[0])
@@ -63,22 +76,27 @@ def cityreader(cities):
             # city longitudes
             lons.append(row[4])
 
-        # remove header
-        names.pop(0)
-        lats.pop(0)
-        lons.pop(0)
+        # original method to drop header
+        # # remove header (the top row)
+        # names.pop(0)
+        # lats.pop(0)
+        # lons.pop(0)
 
-    # this iterates through the values, putting them into class Objects
+    # this iterates through the values, 
+    # putting them into class Objects
     # adding city lat lon to class instances
+    # the length is set to be the same as
+    # the number of city names in the CSV
     for i in range(0,len(names)):
         # iterate
         cities.append(City(names[i], lats[i], lons[i]))
 
-    # return 
+    # finally this returns the completed list of city-objects
     return cities
 
 #run function    
 cities = cityreader(cities)
 
-# print output
+# print a list of just names
+# for all the listed cites
 print([i.name for i in cities])
