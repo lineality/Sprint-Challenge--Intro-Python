@@ -15,58 +15,70 @@
 # Note that the first line of the CSV is header that describes the fields--this
 # should not be loaded into a City object.
 
-#GGA work
+# # #GGA work
 
+# creating an OOP Class
 class City():
-    # give it an additional name attribute
+    # constructor method (function)
     def __init__(self, name, lat, lon):
-        # new attribute
+        # new attributes (name, latitude, longitude)
         self.name = name
         self.lat = lat
         self.lon = lon
-    # this allows for clean printing
+    # Just to be thorough:
+    # this allows for clean printing of objects for inspection
     def __str__(self):
         # using fstring to manage the format of priting
         return f"City Name:{self.name}, Latitude:{self.lat}, Longitude:{self.lon}"
-    # read about this but did not impliment
-    #def __repr__()
-
-# city = City("city_name", 41.70505, -121.51521)
 
 # import library
 import csv
 
-# create variable
+# create variables
+# cities contains the target results
 cities = []
+# these are used to process the data
+names = []
+lats = []
+lons = []
 
-def cityreader(cities=[]):
-    # TODO Implement the functionality to read from the 'cities.csv' file
+# function to read and process a CSV file
+def cityreader(cities):
+    # Implement the functionality to read from the 'cities.csv' file
     # For each city record, create a new City instance and add it to the 
     # `cities` list
     with open('cities.csv') as csvfile:
         # reading the csv file
         readCSV = csv.reader(csvfile, delimiter=',')
 
+        ## this is the full list of options for column-features
+        ## city,state_name,county_name,lat,lng,population,density,timezone,zips
+
         # adding just the city column to the list of cities
         for row in readCSV:
-            cities.append(row[0])
+            # city names
+            names.append(row[0])
+            # city latitudes
+            lats.append(row[3])
+            # city longitudes
+            lons.append(row[4])
 
-        # # adding city lat lon to class instances
-        # for row in readCSV:
-        #     # iterate?
-        #     city = City(row[0], row[3], row[4])
+        # remove header
+        names.pop(0)
+        lats.pop(0)
+        lons.pop(0)
 
-    # # drop header
-    cities.pop(0)
+    # this iterates through the values, putting them into class Objects
+    # adding city lat lon to class instances
+    for i in range(0,len(names)):
+        # iterate
+        cities.append(City(names[i], lats[i], lons[i]))
 
-
-  # with open('cities.csv', newline='') as f:
-  #   reader = csv.reader(f)
-  #   cities = list(reader)
-    
+    # return 
     return cities
 
-cityreader(cities)
+#run function    
+cities = cityreader(cities)
 
-print(cities)
-
+# print output
+print([i.name for i in cities])

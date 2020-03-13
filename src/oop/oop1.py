@@ -1,3 +1,4 @@
+# Test OK
 # Write classes for the following class hierarchy:
 #
 #  [Vehicle]->[FlightVehicle]->[Starship]
